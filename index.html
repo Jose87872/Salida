@@ -153,7 +153,7 @@
 </head>
 <body>
   <div class="container">
-    <h1 id="titulo">¿Quieres salir conmigo, rata inmunda?</h1>
+    <h1 id="titulo">¿Quieres salir conmigo el sabado, rata inmunda?</h1>
     
     <div class="botones">
       <button id="si" onclick="responderSi()">Sí</button>
@@ -169,14 +169,14 @@
     // Variables para seguimiento
     let intentosNo = 0;
     const frasesTitulo = [
-      "¿Quieres salir conmigo, rata tímida?",
+      "¿Quieres salir el sabado rata?",
       "Que inventa, mejerlo de le al si y ya ",
       "¿De verdad lo estás pensando?",
       "Mmmm.... Le falla el coco?",
       "Veo que, si que le falla un poquito...",
       "¡EH! Pero, mami tan difil es darle al 'si' o que?",
       "(⊙x⊙;)",
-      "¡Ve! Tan dificil, no era"
+      ".........."
     ];
     
     // Función para mover el botón NO
@@ -225,13 +225,13 @@
       document.body.style.background = "linear-gradient(to right, #ff758c, #ff7eb3)";
       
       // También cambiar el contenido del título principal
-      document.getElementById("titulo").textContent = "¡Te prometo que será genial, rata tímida!";
+      document.getElementById("titulo").textContent = " ";
       document.getElementById("titulo").style.animation = "none";
       
       // Pausar brevemente antes de mostrar el mensaje de respuesta
       setTimeout(function() {
         const respuesta = document.getElementById("respuesta");
-        respuesta.innerHTML = "¡¿Ves?! Yo sabía que querías salir conmigo, rata tímida inmunda 😂❤️";
+        respuesta.innerHTML = "¡¿Ves?! Yo sabía que querías salir conmigo, rata inmunda 😂❤️";
         respuesta.style.opacity = 1;
         respuesta.style.transform = "scale(1)";
         

@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>¿Salimos el sabado o que rata?</title>
+  <title>¿Quieres salir conmigo?</title>
   <style>
     body {
-      background: #0078d4; /* fondo estilo Windows */
+      background: #0078d4;
       color: white;
       font-family: 'Comic Sans MS', cursive, sans-serif;
       text-align: center;
@@ -45,11 +45,22 @@
       font-size: 2em;
       margin-top: 40px;
     }
+
+    #imagen {
+      margin-top: 20px;
+      display: none;
+    }
+
+    #imagen img {
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00000080;
+    }
   </style>
 </head>
 <body>
 
-  <h1>¿Quieres salir conmigo?</h1>
+  <h1>¿Quieres salir conmigo, rata?</h1>
 
   <div class="botones">
     <button id="si" onclick="responderSi()">Sí</button>
@@ -57,6 +68,9 @@
   </div>
 
   <div id="respuesta"></div>
+  <div id="imagen">
+    <img src="https://i.imgur.com/7H9W8H3.png" alt="Amor gracioso">
+  </div>
 
   <script>
     function moverNo() {
@@ -68,7 +82,9 @@
     }
 
     function responderSi() {
-      document.getElementById("respuesta").textContent = "¡¿Ves?! Yo sabía que querías salir conmigo, rata inmunda 😂❤️";
+      document.getElementById("respuesta").textContent =
+        "¡¿Ves?! Yo sabía que querías salir conmigo, rata inmunda 😂❤️";
+      document.getElementById("imagen").style.display = "block";
     }
   </script>
 

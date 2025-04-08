@@ -2,91 +2,286 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¿Quieres salir conmigo rata?</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    
+    :root {
+      --primary-color: #8e44ad;
+      --secondary-color: #2ecc71;
+      --danger-color: #e74c3c;
+      --text-color: #fff;
+      --bg-color: #282a36;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      background: #0078d4;
-      color: white;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 0.5s;
+      overflow: hidden;
+      padding: 20px;
+    }
+    
+    .container {
       text-align: center;
-      margin-top: 100px;
+      max-width: 800px;
+      width: 100%;
     }
-
+    
     h1 {
-      font-size: 2.5em;
+      font-size: 2.5rem;
       margin-bottom: 30px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: pulsar 2s infinite;
     }
-
+    
+    @keyframes pulsar {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
     .botones {
       position: relative;
+      margin: 40px 0;
+      min-height: 120px;
     }
-
+    
     button {
-      font-size: 1.5em;
-      padding: 10px 30px;
-      margin: 20px;
-      border-radius: 10px;
+      font-size: 1.2rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      padding: 12px 40px;
+      margin: 10px;
+      border-radius: 50px;
       border: none;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
-
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    
     #si {
-      background-color: #28a745;
+      background-color: var(--secondary-color);
       color: white;
     }
-
+    
+    #si:hover {
+      background-color: #27ae60;
+    }
+    
     #no {
-      background-color: #dc3545;
+      background-color: var(--danger-color);
       color: white;
       position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
     }
-
+    
     #respuesta {
-      font-size: 2em;
+      font-size: 2rem;
       margin-top: 40px;
+      font-weight: bold;
+      min-height: 100px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      padding: 10px;
     }
-
-    #imagen {
-      margin-top: 20px;
+    
+    .corazones {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
       display: none;
     }
-
-    #imagen img {
-      width: 300px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00000080;
+    
+    .corazon {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e74c3c"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+      animation: flotar 5s linear infinite;
+      opacity: 0;
+    }
+    
+    @keyframes flotar {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+    
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      button {
+        font-size: 1rem;
+        padding: 10px 30px;
+      }
+      
+      #respuesta {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
-
-  <h1>¿Quieres salir conmigo, rata?</h1>
-
-  <div class="botones">
-    <button id="si" onclick="responderSi()">Sí</button>
-    <button id="no" onmouseover="moverNo()">No</button>
+  <div class="container">
+    <h1 id="titulo">¿Quieres salir conmigo, rata inmunda?</h1>
+    
+    <div class="botones">
+      <button id="si" onclick="responderSi()">Sí</button>
+      <button id="no" onmouseover="moverNo()" onclick="intentarClickNo()">No</button>
+    </div>
+    
+    <div id="respuesta"></div>
   </div>
 
-  <div id="respuesta"></div>
-  <div id="imagen">
-    <img src="https://i.imgur.com/7H9W8H3.png" alt="Amor gracioso">
-  </div>
-
+  <div class="corazones" id="corazones"></div>
+  
   <script>
+    // Variables para seguimiento
+    let intentosNo = 0;
+    const frasesTitulo = [
+      "¿Quieres salir conmigo, rata tímida?",
+      "Que inventa, mejerlo de le al si y ya ",
+      "¿De verdad lo estás pensando?",
+      "Mmmm.... Le falla el coco?",
+      "Veo que, si que le falla un poquito...",
+      "¡EH! Pero, mami tan difil es darle al 'si' o que?",
+      "(⊙x⊙;)",
+      "¡Ve! Tan dificil, no era"
+    ];
+    
+    // Función para mover el botón NO
     function moverNo() {
       const no = document.getElementById("no");
-      const x = Math.random() * 300;
-      const y = Math.random() * 200;
+      const ventanaAncho = window.innerWidth - 150;
+      const ventanaAlto = window.innerHeight - 100;
+      
+      // Posición aleatoria dentro de la ventana
+      let x = Math.random() * ventanaAncho;
+      let y = Math.random() * ventanaAlto;
+      
+      // Asegurar que no se salga de la ventana
+      x = Math.max(10, Math.min(x, ventanaAncho));
+      y = Math.max(10, Math.min(y, ventanaAlto));
+      
+      no.style.position = "fixed";
       no.style.left = x + "px";
       no.style.top = y + "px";
+      
+      // Cambiar el título después de cada intento
+      intentosNo++;
+      if (intentosNo <= frasesTitulo.length - 1) {
+        document.getElementById("titulo").textContent = frasesTitulo[intentosNo];
+      }
+      
+      // Hacer el botón SÍ más grande con cada intento
+      const si = document.getElementById("si");
+      const escala = 1 + (intentosNo * 0.05);
+      si.style.transform = `scale(${escala})`;
     }
-
+    
+    // Intentar hacer clic en el botón NO
+    function intentarClickNo() {
+      moverNo();
+      return false;
+    }
+    
+    // Respuesta al hacer clic en SÍ
     function responderSi() {
-      document.getElementById("respuesta").textContent =
-        "¡¿Ves?! Yo sabía que querías salir conmigo, rata inmunda 😂❤️";
-      document.getElementById("imagen").style.display = "block";
+      // Ocultar los botones primero
+      document.getElementById("no").style.display = "none";
+      document.getElementById("si").style.display = "none";
+      
+      // Cambiar el fondo inmediatamente
+      document.body.style.background = "linear-gradient(to right, #ff758c, #ff7eb3)";
+      
+      // También cambiar el contenido del título principal
+      document.getElementById("titulo").textContent = "¡Te prometo que será genial, rata tímida!";
+      document.getElementById("titulo").style.animation = "none";
+      
+      // Pausar brevemente antes de mostrar el mensaje de respuesta
+      setTimeout(function() {
+        const respuesta = document.getElementById("respuesta");
+        respuesta.innerHTML = "¡¿Ves?! Yo sabía que querías salir conmigo, rata tímida inmunda 😂❤️";
+        respuesta.style.opacity = 1;
+        respuesta.style.transform = "scale(1)";
+        
+        // Mostrar animación de corazones
+        mostrarCorazones();
+      }, 300);
     }
+    
+    // Crear y animar corazones flotantes
+    function mostrarCorazones() {
+      const corazones = document.getElementById("corazones");
+      corazones.style.display = "block";
+      
+      // Crear 50 corazones
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const corazon = document.createElement("div");
+          corazon.classList.add("corazon");
+          
+          // Posición inicial aleatoria
+          corazon.style.left = Math.random() * 100 + "%";
+          corazon.style.top = Math.random() * 100 + "%";
+          
+          // Tamaño aleatorio
+          const tamaño = Math.random() * 30 + 15;
+          corazon.style.width = tamaño + "px";
+          corazon.style.height = tamaño + "px";
+          
+          // Duración aleatoria
+          const duracion = Math.random() * 5 + 3;
+          corazon.style.animationDuration = duracion + "s";
+          
+          corazones.appendChild(corazon);
+          
+          // Eliminar después de la animación
+          setTimeout(() => {
+            corazon.remove();
+          }, duracion * 1000);
+        }, i * 100);
+      }
+    }
+    
+    // Asegurar que el botón NO esté siempre visible
+    window.addEventListener("resize", function() {
+      const no = document.getElementById("no");
+      if (no.getBoundingClientRect().right > window.innerWidth || 
+          no.getBoundingClientRect().bottom > window.innerHeight) {
+        moverNo();
+      }
+    });
   </script>
-
 </body>
 </html>

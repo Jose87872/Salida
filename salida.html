@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Quieres salir conmigo?</title>
+  <style>
+    body {
+      background: #0078d4; /* fondo estilo Windows */
+      color: white;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+
+    .botones {
+      position: relative;
+    }
+
+    button {
+      font-size: 1.5em;
+      padding: 10px 30px;
+      margin: 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #si {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #no {
+      background-color: #dc3545;
+      color: white;
+      position: absolute;
+    }
+
+    #respuesta {
+      font-size: 2em;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>¿Quieres salir conmigo?</h1>
+
+  <div class="botones">
+    <button id="si" onclick="responderSi()">Sí</button>
+    <button id="no" onmouseover="moverNo()">No</button>
+  </div>
+
+  <div id="respuesta"></div>
+
+  <script>
+    function moverNo() {
+      const no = document.getElementById("no");
+      const x = Math.random() * 300;
+      const y = Math.random() * 200;
+      no.style.left = x + "px";
+      no.style.top = y + "px";
+    }
+
+    function responderSi() {
+      document.getElementById("respuesta").textContent = "¡Sabía que dirías que sí! ❤️";
+    }
+  </script>
+
+</body>
+</html>

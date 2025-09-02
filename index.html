@@ -22,6 +22,7 @@
       text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       max-width: 300px;
+      position: relative;
     }
 
     h2 {
@@ -33,6 +34,8 @@
       display: flex;
       justify-content: space-around;
       margin-bottom: 20px;
+      position: relative;
+      height: 60px;
     }
 
     button {
@@ -41,12 +44,14 @@
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      position: absolute;
     }
 
     #yesBtn {
       background-color: #4CAF50;
       color: white;
+      left: 20px;
     }
 
     #yesBtn:hover {
@@ -56,16 +61,32 @@
     #noBtn {
       background-color: #f44336;
       color: white;
+      right: 20px;
     }
 
-    #noBtn:hover {
-      background-color: #d32f2f;
+    /* Animación de rebote */
+    @keyframes bounce {
+      0%   { transform: translateY(0); }
+      30%  { transform: translateY(-15px); }
+      50%  { transform: translateY(0); }
+      70%  { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+
+    #noBtn.bouncing {
+      animation: bounce 0.5s;
     }
 
     #response {
       font-size: 18px;
       font-weight: bold;
       color: #333;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #response.show {
+      opacity: 1;
     }
   </style>
 </head>
@@ -80,14 +101,33 @@
   </div>
 
   <script>
-    document.getElementById("yesBtn").addEventListener("click", () => {
-      document.getElementById("response").textContent = "¡Perfecto! Te parece hoy a las 7?";
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const response = document.getElementById("response");
+    const buttonsContainer = document.querySelector(".buttons");
+
+    yesBtn.addEventListener("click", () => {
+      response.textContent = "¡Perfecto! Te parece hoy a las 7?";
+      response.classList.add("show");
     });
 
-    document.getElementById("noBtn").addEventListener("click", () => {
-      document.getElementById("response").textContent = "Oh, qué lástima 😢";
+    // Mover y hacer rebotar el botón "No"
+    noBtn.addEventListener("mouseover", () => {
+      const containerWidth = buttonsContainer.clientWidth - noBtn.offsetWidth;
+      const containerHeight = buttonsContainer.clientHeight - noBtn.offsetHeight;
+
+      const randomX = Math.floor(Math.random() * containerWidth);
+      const randomY = Math.floor(Math.random() * containerHeight);
+
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      noBtn.style.opacity = Math.random() * 0.5 + 0.5; // entre 0.5 y 1
+
+      // activar rebote
+      noBtn.classList.add("bouncing");
+      setTimeout(() => {
+        noBtn.classList.remove("bouncing");
+      }, 500);
     });
   </script>
 </body>
 </html>
-
